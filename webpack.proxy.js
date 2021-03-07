@@ -1,5 +1,5 @@
 module.exports = `const injectScripts = require('webpack-dev-server-inject-scripts');
-const { merge } = require('webpack-merge');
+const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 
 const SOURCE_ROOT = __dirname + '/src/main/webpack';

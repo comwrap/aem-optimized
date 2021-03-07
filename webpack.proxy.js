@@ -19,8 +19,8 @@ module.exports = () => {
           bypass: function (req, res, proxyOptions) {
             // Skip clientlib-site files
             if (
-              req.originalUrl.includes('resources') &&
-              req.originalUrl.startsWith('/content/')
+              req.originalUrl.includes('clientlib-site.min') &&
+              req.originalUrl.startsWith('/etc.clientlibs/')
             ) {
               return '';
             }

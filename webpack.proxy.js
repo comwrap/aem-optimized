@@ -17,20 +17,17 @@ module.exports = () => {
       proxy: [
         {
           bypass: function (req, res, proxyOptions) {
+            // Skip clientlib-site files
             if (
-              req.originalUrl ===
-                '/etc.clientlibs/mysite/clientlibs/clientlib-site.min.js' ||
-              req.originalUrl ===
-                '/etc.clientlibs/mysite/clientlibs/clientlib-site.min.css'
+              req.originalUrl.includes('resources') &&
+              req.originalUrl.startsWith('/content/')
             ) {
-              console.log('skipping');
               return '';
             }
             if (req.originalUrl.includes('resources')) {
               const ret =
                 '/dist/clientlib-site' +
                 req.originalUrl.slice(req.originalUrl.indexOf('/resources'));
-              console.log(ret);
               return ret;
             }
           },

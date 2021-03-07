@@ -1,7 +1,7 @@
 # aem-optimized
 
-===
-Creates a new webpack-config that allows you to proxy with HMR enabled the author instance locally running on port 4502. This allows rapid development for scss and js without the need of a browser refresh or a local deployment. Stop prototyping in browser and start directly in code.
+This package is meant for newly created projects with aem archetype.
+It allows you to proxy the author instance locally running on port 4502 with HMR enabled. This allows rapid development for scss and js without the need of a browser refresh or a local deployment.
 
 ## How to use
 

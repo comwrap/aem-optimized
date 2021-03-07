@@ -1,3 +1,4 @@
+`
 const injectScripts = require('webpack-dev-server-inject-scripts');
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
@@ -47,3 +48,4 @@ module.exports = () => {
     },
   });
 };
+`;

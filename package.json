@@ -1,0 +1,19 @@
+{
+  "name": "aem-optimized",
+  "version": "1.0.0",
+  "description": "Extends the default webpack-configs with proxing the local instance running at port 4502 and enabling HMR. Now you can directly change the components style with style-system and directly develop. Speeds up the development process greatly",
+  "main": "index.js",
+  "keywords": [
+    "aem",
+    "archetype",
+    "WKND"
+  ],
+  "author": "Helge Ahrens",
+  "license": "MIT",
+  "devDependencies": {
+    "prepend-file": "^2.0.0"
+  },
+  "bin": {
+    "aem-optimized": "cli.js"
+  }
+}

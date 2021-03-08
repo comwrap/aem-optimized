@@ -24,14 +24,17 @@ module.exports = () => {
             ) {
               return '';
             }
-            if (req.originalUrl.includes('resources')) {
+            if (
+              req.originalUrl.includes("resources") &&
+              req.originalUrl.startsWith("/content/")
+            ) {
               const ret =
-                '/dist/clientlib-site' +
-                req.originalUrl.slice(req.originalUrl.indexOf('/resources'));
+                "/dist/clientlib-site" +
+                req.originalUrl.slice(req.originalUrl.indexOf("/resources"));
               return ret;
             }
           },
-          context: ['/content', '/etc.clientlibs'],
+          context: ['/content', '/etc.clientlibs', '/libs'],
           target: 'http://localhost:4502',
         },
       ],

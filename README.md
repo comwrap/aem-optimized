@@ -14,6 +14,10 @@ It allows you to proxy the author instance locally running on port 4502 with HMR
 5. Change some css values, save and watch the changes happen without a page refresh
 6. uninstall package: npm remove aem-optimized
 
+## configuration
+
+- by default the port 8080 will be used. This can be a conflict if you have a dispatcher running which could use the same port. If you want or need to change the port you can specify a different port in webpack.proxy.js.
+
 ## Known issues
 
 - if you enable '/' as proxy path the edit-mode has issues. E.g. no images are draggable to components, component policies cannot be changed. So see this as experimental.

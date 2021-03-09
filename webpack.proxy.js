@@ -14,6 +14,7 @@ module.exports = () => {
 
     devServer: {
       inline: true,
+      port: 8080,
       proxy: [
         {
           bypass: function (req, res, proxyOptions) {

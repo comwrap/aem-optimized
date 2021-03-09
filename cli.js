@@ -29,6 +29,8 @@ async function modify(file) {
     exec(
       'npm i -D webpack-dev-server-inject-scripts',
       (error, stdout, stderr) => {
+        if (error) throw error;
+        if (stderr) console.log('ERROR!:', stderr);
         console.log(stdout);
         console.log(
           'done! !manual step!\nadd following runcommand to package.json: \n "proxy": "NODE_ENV=dev webpack-dev-server --hot --config ./webpack.proxy.js"'

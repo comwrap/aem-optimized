@@ -1,31 +1,35 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-const prependFile = require('prepend-file');
 const { exec } = require('child_process');
 
 const content = require('./webpack.proxy');
 
 async function modify(file) {
-  console.log('modifying webpack.common.js');
-  await prependFile(file, 'const devMode = process.env.NODE_ENV === "dev";');
   fs.readFile(file, 'utf8', (err, data) => {
     if (err) throw err;
 
-    const res = data.replace(
+    console.log('modifying webpack.common.js');
+    let res = data.replace(
       'MiniCssExtractPlugin.loader,',
       'devMode ? "style-loader" : MiniCssExtractPlugin.loader,'
+    );
+    res = res.replace(
+      'module.exports = {',
+      `const devMode = process.env.NODE_ENV === "dev";
+module.exports = {`
     );
 
     fs.writeFile(file, res, 'utf8', (err, data) => {
       if (err) throw err;
     });
   });
-  console.log('creating file');
+  console.log('creating webpack.proxy.js');
   fs.writeFile('webpack.proxy.js', content, (err) => {
     if (err) throw err;
 
     console.log('installing dependencies...');
+    console.log('npm i -D webpack-dev-server-inject-scripts');
     exec(
       'npm i -D webpack-dev-server-inject-scripts',
       (error, stdout, stderr) => {

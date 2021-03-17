@@ -10,9 +10,7 @@
   ],
   "author": "Helge Ahrens",
   "license": "MIT",
-  "dependencies": {
-    "prepend-file": "^2.0.0"
-  },
+  "dependencies": {},
   "bin": {
     "aem-optimized": "cli.js"
   },

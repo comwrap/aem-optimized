@@ -20,7 +20,7 @@ module.exports = () => {
           bypass: function (req, res, proxyOptions) {
             // Skip clientlib-site files
             if (
-              req.originalUrl.includes('clientlib-site.min') &&
+              req.originalUrl.match(/clientlib-site.*.min/g) &&
               req.originalUrl.startsWith('/etc.clientlibs/')
             ) {
               return '';

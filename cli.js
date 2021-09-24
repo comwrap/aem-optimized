@@ -31,7 +31,7 @@ module.exports = {`
     console.log('installing dependencies...');
     console.log('npm i -D webpack-dev-server-inject-scripts local-cors-proxy');
     exec(
-      'npm i -D webpack-dev-server-inject-scripts',
+      'npm i -D webpack-dev-server-inject-scripts local-cors-proxy',
       (error, stdout, stderr) => {
         if (error) throw error;
         if (stderr) console.log('ERROR!:', stderr);

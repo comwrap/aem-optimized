@@ -19,24 +19,39 @@ module.exports = () => {
         {
           bypass: function (req, res, proxyOptions) {
             // Skip clientlib-site files
-            if (
-              req.originalUrl.match(/clientlib-site.*.min/g) &&
-              req.originalUrl.startsWith('/etc.clientlibs/')
-            ) {
-              return '';
+            if (req.originalUrl.startsWith('/etc.clientlibs/')) {
+              //check for clientlibs
+
+              if (req.originalUrl.match(/clientlib-site.*.min/g)) {
+                return '';
+              }
+
+              //check for additional resources
+              if (req.originalUrl.includes('resources')) {
+                const ret =
+                  '/dist/clientlib-site' +
+                  req.originalUrl.split('/resources')[1];
+                return ret;
+              }
             }
+
             if (
-              req.originalUrl.includes("resources") &&
-              req.originalUrl.startsWith("/content/")
+              req.originalUrl.includes('resources') &&
+              req.originalUrl.startsWith('/content/')
             ) {
               const ret =
-                "/dist/clientlib-site" +
-                req.originalUrl.slice(req.originalUrl.indexOf("/resources"));
+                '/dist/clientlib-site' +
+                req.originalUrl.slice(req.originalUrl.indexOf('/resources'));
               return ret;
             }
+            if (req.originalUrl.startsWith('/resources')) {
+              return (
+                '/dist/clientlib-site' + req.originalUrl.split('/resources')[1]
+              );
+            }
           },
-          context: ['/content', '/etc.clientlibs', '/libs'],
-          target: 'http://localhost:4502',
+          context: ['/content', '/etc.clientlibs', '/libs', '/'],
+          target: 'http://localhost:3002',
         },
       ],
 

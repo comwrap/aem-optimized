@@ -29,7 +29,7 @@ module.exports = {`
     if (err) throw err;
 
     console.log('installing dependencies...');
-    console.log('npm i -D webpack-dev-server-inject-scripts');
+    console.log('npm i -D webpack-dev-server-inject-scripts local-cors-proxy');
     exec(
       'npm i -D webpack-dev-server-inject-scripts',
       (error, stdout, stderr) => {
@@ -37,7 +37,7 @@ module.exports = {`
         if (stderr) console.log('ERROR!:', stderr);
         console.log(stdout);
         console.log(
-          'done! !manual step!\nadd following runcommand to package.json: \n "proxy": "NODE_ENV=dev webpack-dev-server --hot --config ./webpack.proxy.js"'
+          'done! !manual step!\nadd following runcommand to package.json: \n "proxy": "NODE_ENV=dev webpack-dev-server --hot --config ./webpack.proxy.js & lcp --proxyUrl \'http://localhost:4502\' --port 3002 --proxyPartial \'\'"'
         );
       }
     );

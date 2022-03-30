@@ -9,6 +9,9 @@
     "archetype",
     "WKND"
   ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "author": "Helge Ahrens",
   "license": "MIT",
   "dependencies": {

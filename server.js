@@ -10,7 +10,7 @@ async function init(url, host, clientlib, entry, headers) {
   try {
     page = await (
       await fetch(`${host}${url}`, {
-        ...headers,
+        headers,
         referrer: `${host}`,
       })
     ).text();
@@ -95,10 +95,7 @@ async function createServer(host, clientlibs, port, entry, headers) {
 
     next();
   });
-
-  app.listen(port, () => {
-    console.log(`Server listening http://localhost:${port}`);
-  });
+  app.listen(port);
 }
 
 export { createServer };

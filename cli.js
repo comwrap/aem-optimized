@@ -13,7 +13,9 @@ explorer
     createServer(
       result.config.host,
       result.config.clientlibs,
-      result.config.port
+      result.config.port,
+      result.config.entry,
+      result.config.headers
     );
   })
   .catch((error) => {

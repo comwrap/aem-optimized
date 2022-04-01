@@ -18,6 +18,7 @@ module.exports = {
   },
   clientlibs: ['clientlib-site'],
   port: 3001,
+  entry: '/src/main.js'
 };
 ```
 

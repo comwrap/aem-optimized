@@ -95,7 +95,9 @@ async function createServer(host, clientlibs, port, entry, headers) {
 
     next();
   });
-  app.listen(port);
+  app.listen(port, () => {
+    console.log(`Server listening http://localhost:${port}`);
+  });
 }
 
 export { createServer };

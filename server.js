@@ -1,4 +1,5 @@
 import express from 'express';
+import { request } from 'express';
 import { JSDOM } from 'jsdom';
 import fetch from 'node-fetch';
 import vite from 'vite';
@@ -19,7 +20,6 @@ async function init(url, host, clientlib, entry, headers) {
     return;
   }
   const dom = new JSDOM(page);
-
   [...dom.window.document.querySelectorAll('script')].forEach((script) => {
     if (script.src.startsWith('/etc.clientlibs')) {
       if (script.src.includes(clientlib)) {
@@ -38,19 +38,7 @@ async function init(url, host, clientlib, entry, headers) {
     }
   });
 
-  [...dom.window.document.querySelectorAll('img')].forEach((img) => {
-    img.src = `${host}${img.src}`;
-  });
-  [...dom.window.document.querySelectorAll('[data-cmp-lazy]')].forEach(
-    (img) => {
-      img.setAttribute(
-        'data-cmp-src',
-        `${host}${img.getAttribute('data-cmp-src')}`
-      );
-    }
-  );
-
-  var script = dom.window.document.createElement('script');
+  const script = dom.window.document.createElement('script');
   script.setAttribute('type', 'module');
   script.setAttribute('src', entry);
 
@@ -76,25 +64,18 @@ async function createServer(host, clientlibs, port, entry, headers) {
   });
   // use vite's connect instance as middleware
   app.use(vite.middlewares);
-
   app.use(async function (req, res, next) {
     const url = req.originalUrl;
-    if (
-      req.url === '/' ||
-      req.url.endsWith('.html') ||
-      req.url.includes('.html?')
-    ) {
+    if (req.url === '/' || req.url.endsWith('.html')) {
       const page = await init(req.url, host, clientlibs[0], entry, headers);
       const template = await vite.transformIndexHtml(url, page);
 
       res.send(template.replace('<!-- APP -->', page));
     }
-    if (req.url.startsWith('/etc.')) {
-      res.send(`${host}${req.url}`);
-    }
 
     next();
   });
+
   app.listen(port, () => {
     console.log(`Server listening http://localhost:${port}`);
   });

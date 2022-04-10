@@ -7,7 +7,7 @@ const vite = require('vite');
 const { createServer } = vite;
 const { JSDOM } = jsdom;
 
-async function init(url, host, clientlib, entry, headers) {
+async function init(url, host, clientlibs, entry, headers) {
   // fetch with basic auth admin:admin
   let page;
   try {
@@ -24,8 +24,10 @@ async function init(url, host, clientlib, entry, headers) {
   const dom = new JSDOM(page);
   [...dom.window.document.querySelectorAll('script')].forEach((script) => {
     if (script.src.startsWith('/etc.clientlibs')) {
-      if (script.src.includes(clientlib)) {
-        script.remove();
+      for (const clientlib in clientlibs) {
+        if (script.src.includes(clientlib)) {
+          script.remove();
+        }
       }
       script.src = `${host}${script.src}`;
     }
@@ -33,8 +35,10 @@ async function init(url, host, clientlib, entry, headers) {
 
   [...dom.window.document.querySelectorAll('link')].forEach((link) => {
     if (link.href.startsWith('/etc.clientlibs')) {
-      if (link.href.includes(clientlib)) {
-        link.remove();
+      for (const clientlib in clientlibs) {
+        if (link.href.includes(clientlib)) {
+          link.remove();
+        }
       }
       link.href = `${host}${link.href}`;
     }
@@ -69,7 +73,7 @@ async function createMyServer(host, clientlibs, port, entry, headers) {
   app.use(async function (req, res, next) {
     const url = req.originalUrl;
     if (req.url === '/' || req.url.endsWith('.html')) {
-      const page = await init(req.url, host, clientlibs[0], entry, headers);
+      const page = await init(req.url, host, clientlibs, entry, headers);
       const template = await vite.transformIndexHtml(url, page);
 
       res.send(template.replace('<!-- APP -->', page));

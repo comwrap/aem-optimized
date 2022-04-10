@@ -10,7 +10,7 @@ AEM-Optimized utilizes the vite.config.js, so all configurations can be made in 
 ## How to use
 
 1. install package: npm i -D aem-optimized
-2. create a new config-file named `vite.config.js` and define a aemOptimized object with the following attributes: `host`, `clientlibs`,`port`, `headers`.
+2. create a new config-file named `vite.config.js` and define a aemOptimized object with the following attributes: `host`, `clientlibs`,`port`, `headers`, `entry`.
    The host-entry can be any target, so even your production environment's publisher.
 3. run script: npx aem-optimized
 4. Change some css values, save and watch the changes happen without a page refresh

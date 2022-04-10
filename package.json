@@ -3,19 +3,21 @@
   "version": "2.0.4",
   "description": "Spins up a dedicated server that pulls host page and replaces clientlibs with locals",
   "main": "index.js",
-  "type": "module",
+  "type": "commonjs",
   "keywords": [
     "aem",
     "archetype",
     "WKND"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "build": "esbuild server.js --outdir=dist --format=cjs"
   },
   "author": "Helge Ahrens",
   "license": "MIT",
   "dependencies": {
     "cosmiconfig": "^7.0.1",
+    "esbuild": "^0.14.34",
     "express": "^4.17.3",
     "jsdom": "^19.0.0",
     "node-fetch": "^3.2.3"

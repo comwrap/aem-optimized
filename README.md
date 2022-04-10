@@ -11,9 +11,10 @@ AEM-Optimized utilizes the vite.config.js, so all configurations can be made in 
 
 1. install package: npm i -D aem-optimized
 2. create a new config-file named `vite.config.js` and define a aemOptimized object with the following attributes: `host`, `clientlibs`,`port`, `headers`, `entry`.
-   The host-entry can be any target, so even your production environment's publisher.
+   The host-entry can be any target, so even your production environment's publisher. If working against a local author you can also pass a `wcmmode: 'disabled'` for better visuals.
 3. run script: npx aem-optimized
-4. Change some css values, save and watch the changes happen without a page refresh
+4. open a page in 'view as published' and change the aem-port to the aem-optimized-port. e.g. `localhost:4502/content/mysite/us/en.html` to `localhost:3000/content/mysite/us/en.html`
+5. Change some css values, save and watch the changes happen without a page refresh
 
 ## Sample Configs
 
@@ -40,6 +41,7 @@ export default defineConfig({
         clientlibs,
         entry,
         port,
+        wcmmode: 'disabled'
     },
     server: {
         proxy: {

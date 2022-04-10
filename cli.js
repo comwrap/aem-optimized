@@ -51,6 +51,7 @@ if (fs.existsSync(processedConfig)) {
     config.aemOptimized.clientlibs,
     config.aemOptimized.port,
     config.aemOptimized.entry,
-    config.aemOptimized.headers
+    config.aemOptimized.headers,
+    config.aemOptimized.wcmmode
   );
 }

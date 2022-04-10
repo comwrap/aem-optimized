@@ -7,12 +7,15 @@ const vite = require('vite');
 const { createServer } = vite;
 const { JSDOM } = jsdom;
 
-async function init(url, host, clientlibs, entry, headers) {
+async function init(url, host, clientlibs, entry, headers, wcmmode) {
   // fetch with basic auth admin:admin
   let page;
+  const fetchUrl = wcmmode
+    ? `${host}${url}?wcmmode=${wcmmode}`
+    : `${host}${url}`;
   try {
     page = await (
-      await fetch(`${host}${url}`, {
+      await fetch(fetchUrl, {
         headers,
         referrer: `${host}`,
       })
@@ -57,7 +60,14 @@ async function init(url, host, clientlibs, entry, headers) {
   return dom.serialize();
 }
 
-async function createMyServer(host, clientlibs, port, entry, headers) {
+async function createMyServer(
+  host,
+  clientlibs,
+  port,
+  entry,
+  headers,
+  wcmmode = null
+) {
   const app = express();
 
   // Create Vite server in middleware mode. This disables Vite's own HTML
@@ -73,7 +83,14 @@ async function createMyServer(host, clientlibs, port, entry, headers) {
   app.use(async function (req, res, next) {
     const url = req.originalUrl;
     if (req.url === '/' || req.url.endsWith('.html')) {
-      const page = await init(req.url, host, clientlibs, entry, headers);
+      const page = await init(
+        req.url,
+        host,
+        clientlibs,
+        entry,
+        headers,
+        wcmmode
+      );
       const template = await vite.transformIndexHtml(url, page);
 
       res.send(template.replace('<!-- APP -->', page));

@@ -30,12 +30,17 @@ const createServer = require('./dist/server').default;
 //     // Do something constructive.
 //   });
 const pathToConfig = process.cwd() + '/vite.config.js';
-const processedConfig = path.join(process.cwd(), 'esbuild', 'vite.config.js');
+const processedConfig = path.join(
+  process.cwd(),
+  'node_modules',
+  '.aemoptimized',
+  'vite.config.js'
+);
 esbuild
   .build({
     format: 'cjs',
     entryPoints: [pathToConfig],
-    outdir: './esbuild',
+    outdir: './node_modules/.aemoptimized',
   })
   .catch((e) => console.log(e));
 if (fs.existsSync(processedConfig)) {

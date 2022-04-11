@@ -27,7 +27,7 @@ async function init(url, host, clientlibs, entry, headers, wcmmode) {
   const dom = new JSDOM(page);
   [...dom.window.document.querySelectorAll('script')].forEach((script) => {
     if (script.src.startsWith('/etc.clientlibs')) {
-      for (const clientlib in clientlibs) {
+      for (const clientlib of clientlibs) {
         if (script.src.includes(clientlib)) {
           script.remove();
         }
@@ -38,7 +38,7 @@ async function init(url, host, clientlibs, entry, headers, wcmmode) {
 
   [...dom.window.document.querySelectorAll('link')].forEach((link) => {
     if (link.href.startsWith('/etc.clientlibs')) {
-      for (const clientlib in clientlibs) {
+      for (const clientlib of clientlibs) {
         if (link.href.includes(clientlib)) {
           link.remove();
         }

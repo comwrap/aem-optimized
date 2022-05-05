@@ -1,6 +1,6 @@
 {
   "name": "aem-optimized",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "description": "Spins up a dedicated server that pulls host page and replaces clientlibs with locals",
   "main": "index.js",
   "type": "commonjs",

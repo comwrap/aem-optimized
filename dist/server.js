@@ -80,7 +80,8 @@ async function createMyServer(host, clientlibs, port, entry, headers, wcmmode = 
   app.use(vite2.middlewares);
   app.use(async function(req, res, next) {
     const url = req.originalUrl;
-    if (req.url === "/" || req.url.endsWith(".html")) {
+    const reg = new RegExp(/.*(\/|\.html|\.html\?.*)$/i);
+    if (req.url === "/" || reg.test(req.url)) {
       const page = await init(req.url, host, clientlibs, entry, headers, wcmmode);
       const template = await vite2.transformIndexHtml(url, page);
       res.send(template.replace("<!-- APP -->", page));

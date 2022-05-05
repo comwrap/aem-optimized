@@ -82,7 +82,8 @@ async function createMyServer(
   app.use(vite.middlewares);
   app.use(async function (req, res, next) {
     const url = req.originalUrl;
-    if (req.url === '/' || req.url.endsWith('.html')) {
+    const reg = new RegExp(/.*(\/|\.html|\.html\?.*)$/i);
+    if (req.url === '/' || reg.test(req.url)) {
       const page = await init(
         req.url,
         host,

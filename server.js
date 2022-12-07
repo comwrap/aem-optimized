@@ -47,6 +47,33 @@ async function init(url, host, clientlibs, entry, headers, wcmmode) {
     }
   });
 
+  // const loadScript = dom.window.document.createElement('script');
+  // loadScript.setAttribute('type', 'text/javascript');
+  // loadScript.setAttribute('entry', entry);
+  // loadScript.setAttribute('id', 'loadScript');
+  // loadScript.innerHTML = `if(!window.CQ?.Siteadmin) {
+  //   const script = document.createElement('script');
+  //   script.setAttribute('type', 'module');
+  //   script.setAttribute('src', document.querySelector('#loadScript').getAttribute('entry'));
+
+  //   const div = document.createElement('div');
+  //   div.setAttribute('id', 'root');
+  //   div.setAttribute('class', 'app');
+  //   document.body.appendChild(div);
+  //   document.body.appendChild(script);
+  // }`;
+  // dom.window.document.body.appendChild(loadScript);
+  // if (!globalThis['CQ']?.Siteadmin) {
+  //   const script = dom.window.document.createElement('script');
+  //   script.setAttribute('type', 'module');
+  //   script.setAttribute('src', entry);
+
+  //   const div = dom.window.document.createElement('div');
+  //   div.setAttribute('id', 'root');
+  //   div.setAttribute('class', 'app');
+  //   dom.window.document.body.appendChild(div);
+  //   dom.window.document.body.appendChild(script);
+  // }
   const script = dom.window.document.createElement('script');
   script.setAttribute('type', 'module');
   script.setAttribute('src', entry);
@@ -82,7 +109,7 @@ async function createMyServer(
   app.use(vite.middlewares);
   app.use(async function (req, res, next) {
     const url = req.originalUrl;
-    const reg = new RegExp(/.*(\/|\.html|\.html\?.*)$/i);
+    const reg = new RegExp(/.*(\/|\.html|\.html\/.*|\.html\?.*)$/i);
     if (req.url === '/' || reg.test(req.url)) {
       const page = await init(
         req.url,
